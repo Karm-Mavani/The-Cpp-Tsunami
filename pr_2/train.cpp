@@ -4,7 +4,10 @@ using namespace std;
 
 class Train
 {
+public:
     int trainNumber;
+
+private:
     char trainName[50];
     char source[50];
     char destination[50];
@@ -29,11 +32,6 @@ public:
         cin >> this->destination;
         cout << "Enter Train Time :";
         cin >> this->trainTime;
-        // this->trainNumber = trainNumber;
-        // strcpy(this->trainName, trainName);
-        // strcpy(this->source, source);
-        // strcpy(this->destination, destination);
-        // strcpy(this->trainTime, trainTime);
     }
     void outputTrain()
     {
@@ -48,7 +46,7 @@ public:
 
 int Train::trainCount = 20;
 
-class RailwaySystem
+class RailwaySystem 
 {
     Train t1[100];
     int n = 0;
@@ -67,7 +65,13 @@ public:
 
     void search(int a)
     {
-        t1[a].outputTrain();
+        for (int i = 0; i < n; i++)
+        {
+            if (a == t1[i].trainNumber)
+            {
+                t1[i].outputTrain();
+            }
+        }
     }
 };
 
@@ -83,7 +87,7 @@ int main()
         cout << "Enter 1 for new records" << endl;
         cout << "Enter 2 for Display all records" << endl;
         cout << "Enter 3 for search by records" << endl;
-        cout << "Enter 4 for exit"<<endl;
+        cout << "Enter 4 for exit" << endl;
         cout << "Enter your choice :";
         cin >> cho;
         switch (cho)
