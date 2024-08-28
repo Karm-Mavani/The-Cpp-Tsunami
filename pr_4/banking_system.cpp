@@ -6,27 +6,27 @@ class BankAccount
 protected:
     long long int accountNumber;
     char accoutHolder[50];
-    public:
-    double balance ,a, b, c;
 
+    double a, b, c;
 
 public:
+    double balance;
     double inputdata()
     {
-        int a;
         cout << endl
              << "Enter Account Number : ";
-        cin >> accountNumber;
+        cin >> this->accountNumber;
         cout << "Enter Account Holder Name : ";
-        cin >> accoutHolder;
-    
+        cin >> this->accoutHolder;
+
     label:
         cout << "Enter Your Balance :";
         cin >> a;
         if (a >= 1000)
-            this->accountNumber = this->balance + a;
+            this->balance = this->balance + a;
         else
         {
+            system("cls");
             this->balance = this->balance + a;
             cout << "Your Minimum Balance Must be 1000" << endl;
             goto label;
@@ -41,9 +41,8 @@ public:
         if (a > 0)
         {
             this->balance = this->balance + a;
-            
+            cout << "Deposit Successfull" << endl;
             cout << "Your New Balance is : " << this->balance << endl;
-            // cout << "Deposit Successfull" << endl;
         }
     }
 
@@ -52,7 +51,6 @@ public:
     LABEL1:
         cout << "Enter withdarw value :";
         cin >> b;
-        double c;
         c = balance - b;
         if (a >= 1000)
         {
@@ -73,19 +71,11 @@ public:
         }
     }
 
-    /* void printbalance()
-     {
-         cout << "Account balance :" << this->balance;
-     }
-     void getbalance()
-     {
-         cout << "Your Current Blance is :" << this->balance << balance;
-     }*/
     void display()
     {
         cout << endl
              << "Account Number\t: " << this->accountNumber << endl
-             << "Accout Holder Name\t:" << this->accoutHolder << endl
+             << "Accout Holder Name:" << this->accoutHolder << endl
              << "Account Balance\t: " << this->balance << endl;
     }
 };
@@ -102,9 +92,12 @@ public:
         return interestRate;
     }
 
-    inline void inputCel(double interestRate)
+    inline void inputCel(double interestRate, double myBalance)
     {
-        interest = (balance * interestRate) / 100;
+        cout << "\nYour Current Balance is " << myBalance << endl
+             << endl;
+        interest = (myBalance * interestRate) / 100;
+
         cout << "Commen Interest For " << interestRate << " % " << " is " << interest << endl
              << endl;
     }
@@ -137,74 +130,18 @@ public:
         cin >> d;
         return d;
     }
-    void interCel(int a)
+    void inputCel(int a, double your)
     {
-        fixedInterest = (balance * fixedRate * d) / 1200;
-        cout << "Your Inetrest with " << d << "Months Will be :" << fixedInterest << endl;
+        fixedInterest = (balance * fixedRate * your) / 1200;
+        cout << "Your Inetrest with 10" << "%" << " and " << d << " Months Will be : " << fixedInterest << endl;
     }
 };
 
-class Function : public BankAccount, public SavingAccount, public CheckingAccount, public FixedDepositeAccount
-{
-    int a, b;
-
-public:
-    int show()
-    {
-        cout << endl
-             << "1.Saving Accout\n2.Checking Account\n3.Fixed Deposit Account\n"
-             << endl;
-        cout << "Enter Your choice :";
-        cin >> b;
-        return b;
-    }
-    void show2(int b, BankAccount b1)
-    {
-        switch (b)
-        {
-        case 1:
-            cout << "1.Deposit\n2.Withdraw\n3.continue"
-                 << endl;
-            cout << "Enter your choice :";
-            cin >> a;
-            switch (a)
-            {
-            case 1:
-                SavingAccount::deposit();
-                break;
-            case 2:
-                SavingAccount::withdraw();
-                break;
-            }
-            inputCel(inputsa());
-            break;
-        case 2:
-
-            b1.display();
-            break;
-        case 3:
-            cout << "1.Deposit\n2.Withdraw\ncontinue"
-                 << endl;
-            cin >> a;
-            switch (a)
-            {
-            case 1:
-                FixedDepositeAccount::deposit();
-                break;
-            case 2:
-                FixedDepositeAccount::withdraw();
-                break;
-            }
-            inputCel(inputfda());
-            break;
-        }
-    }
-
-    void entry(BankAccount b1)
-    {
-        show2(show(), b1);
-    }
-};
+//
+//
+// system("cls"); --> Clear screen
+//
+//
 
 int main()
 {
@@ -212,16 +149,16 @@ int main()
     SavingAccount s1;
     CheckingAccount c1;
     FixedDepositeAccount f1;
-    Function fu1;
     int a = 1, b = 0;
 
     for (; a != 2;)
     {
+        system("cls");
         cout << endl
              << "1.Continue\n2.Exit\n";
         cout << "Enter Your Choice :";
         cin >> a;
-
+        system("cls");
         switch (a)
         {
         case 1:
@@ -229,12 +166,58 @@ int main()
             {
                 b1.inputdata();
                 b++;
+                system("cls");
             }
-            fu1.entry(b1);
-
+            cout << "1.Saving Accout\n2.Checking Account\n3.Fixed Deposit Account\n"
+                 << endl;
+            cout << "Enter Your choice :";
+            cin >> b;
+            system("cls");
+            switch (b)
+            {
+            case 1:
+                cout << "1.Deposit\n2.Withdraw\n3.continue"
+                     << endl;
+                cout << "Enter your choice :";
+                cin >> a;
+                system("cls");
+                switch (a)
+                {
+                case 1:
+                    b1.deposit();
+                    break;
+                case 2:
+                    b1.withdraw();
+                    break;
+                }
+                s1.inputCel(s1.inputsa(), b1.balance);
+                break;
+            case 2:
+                system("cls");
+                b1.display();
+                system("cls");
+                break;
+            case 3:
+                cout << "1.Deposit\n2.Withdraw\n3.continue"
+                     << endl;
+                cin >> a;
+                system("cls");
+                switch (a)
+                {
+                case 1:
+                    b1.deposit();
+                    break;
+                case 2:
+                    b1.withdraw();
+                    break;
+                }
+                f1.inputCel(f1.inputfda(), b1.balance);
+                break;
+            }
             break;
         case 2:
             cout << "Thank you.....";
+            system("cls");
             break;
             break;
         }
