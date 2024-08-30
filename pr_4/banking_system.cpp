@@ -48,29 +48,45 @@ public:
 
     void withdraw()
     {
-    LABEL1:
-        cout << "Enter withdarw value :";
-        cin >> b;
-        c = balance - b;
-        if (a >= 1000)
+        int a = 0;
+        for (; a >= 0;)
         {
-            if (b > balance)
-                cout << "Insufficient Balance" << endl;
+            cout << "Enter withdarw value :";
+            cin >> b;
+            c = balance - b;
+            if (c >= 1000)
+            {
+                if (b > balance)
+                {
+                    cout << "Insufficient Balance" << endl;
+                    a--;
+                }
+                else
+                {
+                    balance = balance - b;
+                    cout << "Withdraw Successfull" << endl;
+                    a--;
+                }
+                a--;
+            }
+            else if (50000 <= b)
+            {
+                cout << " *** Over Draft Limit ***";
+                a++;
+            }
+            else if (b >= balance)
+            {
+                cout << "Minimum Left Amount must be 1000" << endl;
+                cout << "     PLEASE TRY AGAIN.....     ";
+                a++;
+            }
             else
-                balance = balance - b;
-        }
-        else if (10000 < b)
-        {
-            cout << " *** Over Draft Limit ***";
-        }
-        else
-        {
-            cout << "Minimum Left Amount must be 1000" << endl;
-            cout << "     PLEASE TRY AGAIN       ";
-            goto LABEL1;
+            {
+                cout << "\nYour Withdraw can't Done Properly\n";
+                a++;
+            }
         }
     }
-
     void display()
     {
         cout << endl
@@ -130,9 +146,9 @@ public:
         cin >> d;
         return d;
     }
-    void inputCel(int a, double your)
+    void inputCel(double a, double your)
     {
-        fixedInterest = (balance * fixedRate * your) / 1200;
+        fixedInterest = (a * fixedRate * your) / 1200;
         cout << "Your Inetrest with 10" << "%" << " and " << d << " Months Will be : " << fixedInterest << endl;
     }
 };
@@ -151,9 +167,9 @@ int main()
     FixedDepositeAccount f1;
     int a = 1, b = 0;
 
-    for (; a != 2;)
+    for (; a != 0;)
     {
-        system("cls");
+
         cout << endl
              << "1.Continue\n2.Exit\n";
         cout << "Enter Your Choice :";
@@ -188,14 +204,14 @@ int main()
                     break;
                 case 2:
                     b1.withdraw();
-                    break;
                 }
                 s1.inputCel(s1.inputsa(), b1.balance);
                 break;
+
             case 2:
                 system("cls");
                 b1.display();
-                system("cls");
+
                 break;
             case 3:
                 cout << "1.Deposit\n2.Withdraw\n3.continue"
@@ -209,10 +225,8 @@ int main()
                     break;
                 case 2:
                     b1.withdraw();
-                    break;
                 }
                 f1.inputCel(f1.inputfda(), b1.balance);
-                break;
             }
             break;
         case 2:
@@ -220,10 +234,11 @@ int main()
             system("cls");
             break;
             break;
+        default:
+        {
+            cout << "\n***Invalid choice****\n";
+            break;
+        }
         }
     }
-
-    // b1.deposit(b1.depositprint());
-    // b1.withdarw(b1.withdrawprint());
-    // b1.print();
 }
