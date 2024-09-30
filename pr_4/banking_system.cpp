@@ -234,6 +234,7 @@ int main()
             system("cls");
             break;
             break;
+            break;
         default:
         {
             cout << "\n***Invalid choice****\n";
